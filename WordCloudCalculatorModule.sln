@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCloudCalculatorConsoleApplication", "WordCloudCalculatorConsoleApplication\WordCloudCalculatorConsoleApplication.csproj", "{C81BC18A-EFAD-4DAD-97E7-5E14ADE8CDF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCloudCalculator", "WordCloudCalculator\WordCloudCalculator.csproj", "{6405254C-0994-40E0-B48A-471AE33C6FF3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C81BC18A-EFAD-4DAD-97E7-5E14ADE8CDF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81BC18A-EFAD-4DAD-97E7-5E14ADE8CDF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81BC18A-EFAD-4DAD-97E7-5E14ADE8CDF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81BC18A-EFAD-4DAD-97E7-5E14ADE8CDF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6405254C-0994-40E0-B48A-471AE33C6FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6405254C-0994-40E0-B48A-471AE33C6FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6405254C-0994-40E0-B48A-471AE33C6FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6405254C-0994-40E0-B48A-471AE33C6FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
