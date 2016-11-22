@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCloudCalculatorConsoleA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCloudCalculator", "WordCloudCalculator\WordCloudCalculator.csproj", "{6405254C-0994-40E0-B48A-471AE33C6FF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordCloudCalculatorTest", "WordCloudCalculatorTest\WordCloudCalculatorTest.csproj", "{0487C22E-9254-466C-A13F-3605A59484C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6405254C-0994-40E0-B48A-471AE33C6FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6405254C-0994-40E0-B48A-471AE33C6FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6405254C-0994-40E0-B48A-471AE33C6FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0487C22E-9254-466C-A13F-3605A59484C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0487C22E-9254-466C-A13F-3605A59484C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0487C22E-9254-466C-A13F-3605A59484C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0487C22E-9254-466C-A13F-3605A59484C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
