@@ -73,7 +73,7 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
             //rechtecke für nächsten Durchlauf speichern
             Taken.Add( rectangle );
 
-            if (StopAfterWords > 0 &&  itemIndex == StopAfterWords)
+            if (StopAfterWords > 0 &&  itemIndex == (StopAfterWords - 1))
 			{
 				CanAddWords = false;
 			}
