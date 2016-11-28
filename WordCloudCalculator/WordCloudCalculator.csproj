@@ -38,6 +38,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contract\Range.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="Contract\Word\IWord.cs" />
     <Compile Include="Contract\Word\VisualizedWord.cs" />
     <Compile Include="Contract\Word\WeightedWord.cs" />
+    <Compile Include="ExtractingWordCloudCalculator\CircleAppearenceCalculationMethod.cs" />
     <Compile Include="ExtractingWordCloudCalculator\ExtractingWordCloudCalculator.cs" />
     <Compile Include="ExtractingWordCloudCalculator\IWordAppearenceCalculationMethod.cs" />
     <Compile Include="ExtractingWordCloudCalculator\SimpleAppearenceCalculationMethod.cs" />

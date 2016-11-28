@@ -30,9 +30,10 @@ namespace WordCloudCalculatorConsoleApplication
 				new DataRow {Text = "Tag11", Weight = 0}
 			};
 
-			var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
+            var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
+            //var calc = new ExtractingWordCloudCalculator<CircleAppearenceCalculationMethod>();
 
-			var appearenaceArgs = new WordCloudAppearenceArguments()
+            var appearenaceArgs = new WordCloudAppearenceArguments()
 			{
 				PanelSize = new Size(Console.WindowWidth, Console.WindowHeight),
 				FontSizeRange = new Range(0.0, 15.0),
@@ -43,9 +44,9 @@ namespace WordCloudCalculatorConsoleApplication
 
 			var ret = calc.Calculate(appearenaceArgs, list, row => new WeightedWord {Text = row.Text, Weight = row.Weight});
 
-			foreach (var c in ret)
+            foreach (var c in ret)
 			{
-				Console.CursorLeft = Convert.ToInt32(c.Position.Left);
+                Console.CursorLeft = Convert.ToInt32(c.Position.Left);
 				Console.CursorTop = Convert.ToInt32(c.Position.Top);
 				Console.ForegroundColor = ConsoleColor.Black + Convert.ToInt32(c.Opacity * 15);
 				Console.Write(c.Text);
