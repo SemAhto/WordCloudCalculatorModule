@@ -94,7 +94,8 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
 
             var visualizedTag = new VisualizedWord(word)
             {
-                FontSize = (this.Arguments.FontSizeRange.Max * word.Weight) % 0.5,
+                //FontSize =  Range.GetRelativeValue(Arguments.FontSizeRange, word.Weight),
+                FontSize =  (this.Arguments.FontSizeRange.Max * word.Weight) % 0.5,
                 Position = new Position(rectangle.Top, rectangle.Left),
                 Opacity = Arguments.OpacityRange.Min/Arguments.OpacityRange.Max*word.Weight//CalculateRelativeValue(Arguments.OpacityRange, word.Weight)
             };
