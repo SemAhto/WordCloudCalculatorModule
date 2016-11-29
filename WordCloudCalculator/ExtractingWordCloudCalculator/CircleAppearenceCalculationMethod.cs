@@ -15,11 +15,13 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
 		public double MaxWeight { get; set; }
         public bool CanAddWords { get; private set; } = true;
         public int StopAfterWords { get; set; } = 10;
+        public int Radius { get; set; } = 1;
         //public List<Polygon> Polygons { get; private set; }
-        public List<Rect> Taken { get; private set; }
+        public List<Rect> Taken { get; private set; } = new List<Rect>();
+        private double pos;
 
-        public double Area(Rect r) {
-            return (r.BottomRight - r.BottomLeft) * (r.BottomRight - r.TopRight);
+        public double Area(Rect r) { // (Groß-Klein)^2
+            return (r.Bottom - r.Top) * (r.Right - r.Left);
         }
 
         private Point GetSpiralPoint(double position, double radius = 7) {
@@ -30,27 +32,24 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
         }
 
 
-        public VisualizedWord CalculateWordAppearence( IWeightedWord word, int itemIndex/*, VisualizedWord preDecessors*/ ) {
+        public VisualizedWord CalculateWordAppearence(IWeightedWord word, int itemIndex/*, VisualizedWord preDecessors*/ ) {
             //Ausdehnung
             var size = Arguments.WordSizeCalculator(word.Text, CalculateRelativeValue(Arguments.FontSizeRange, word.Weight));
             var s = new System.Windows.Size(size.Width, size.Height);
 
             //Startpunkt ermitteln
             var p = new Point();
+
             if (itemIndex == 0) { //vll auch (0,0), später!
-                //var p = new Point(
-                //    (Arguments.PanelSize.Width + s.Width) / 2,
-                //    (Arguments.PanelSize.Height + s.Width) / 2
-                //);
-                p.X = (Arguments.PanelSize.Width + s.Width) / 2;
-                p.Y = (Arguments.PanelSize.Height + s.Width) / 2;
+                p.X = s.Width / 2;
+                p.Y = s.Height / 2;
+                pos = 0;
             } else {
-                //var p = new Point();
-                //p=getpoint()
+                p = GetSpiralPoint(pos/*, radius = 7*/);
             }
 
             //mach' ein Rechteck d'raus
-            var rectangle = new Rect() {
+            var rectangle = new System.Windows.Rect() {
                 Location = p,
                 Size = s
             };
@@ -58,36 +57,53 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
             //bis Platz gefunden
             var found = false;
 
+            var offsetvector = new System.Windows.Vector(
+                Arguments.PanelSize.Width  / 2,
+                Arguments.PanelSize.Height  / 2
+            );
+
             //Kollisionserkennung: über Vorgänger iterieren
             //Teste Position (x,y) ist frei für Wort mit Größe size
-            while ( !found ) {
-                if (itemIndex > 0) { //keine Kollision bei 1. Element
-                    var intersect = new Rect();
-                    foreach (Rect r in Taken) {
-                        intersect = Rect.Intersect(rectangle, r);
-                        if (intersect.IsEmpty) { // darf ich benutzen
-                            found = true; // mit rumschleifen aufhören
-                            break;
-                        } else { // Platz belegt
-                            // neuen Punkt finden
-                        }
+            var intersect = new Rect();
+            var tau = 2 * Math.PI;
+            rectangle.Offset(offsetvector);
+            while ( !(itemIndex <= 0 || found ) ) {
+                foreach (Rect r in Taken) {
+                    intersect = Rect.Intersect(rectangle, r);
+                    if (intersect.IsEmpty) { // darf ich benutzen
+                        found = true; // mit rumschleifen aufhören
+                        break;
+                    } else { // Platz belegt
+                        // neue Postion anhand Fläche bestimmen, min Schritte von 3,6°
+                        var a = (int)(this.Area(intersect) % (Arguments.FontSizeRange.Max * 4));
+                        pos += tau / (a + Radius )/ 2 ;
+                        p = GetSpiralPoint(pos, 2);//this.Radius
+                        var v = new Vector(p.X, p.Y);
+                        // neuen Punkt finden
+                        rectangle.Offset(v);
                     }
                 }
             };
             //bzw. of Position (x,y) bis Position (x+size.Width,y+size.Height) frei/leer ist
             //wenn nicht, neue Position anhand Spirale a(r,phi) => a(x,y)
 
-            var visualizedTag = new VisualizedWord(word) { 
-                Position = new Position(p.X, p.Y),
-				Opacity = CalculateRelativeValue(Arguments.OpacityRange, word.Weight)
-			};
-
             //rechtecke für nächsten Durchlauf speichern
-            Taken.Add( rectangle );
+            if (!rectangle.IsEmpty) {
+                Taken.Add(rectangle);
+            }
 
-            if (StopAfterWords > 0 &&  itemIndex == (StopAfterWords - 1)) {
-				CanAddWords = false;
-			}
+            var visualizedTag = new VisualizedWord(word)
+            {
+                FontSize = (this.Arguments.FontSizeRange.Max * word.Weight) % 0.5,
+                Position = new Position(rectangle.Top, rectangle.Left),
+                Opacity = Arguments.OpacityRange.Min/Arguments.OpacityRange.Max*word.Weight//CalculateRelativeValue(Arguments.OpacityRange, word.Weight)
+            };
+
+
+            // raise flag to stop new Words
+            if (StopAfterWords >= 1 && itemIndex >= (StopAfterWords - 1)) { 
+				    CanAddWords = false;
+            }
 
 			return visualizedTag;
 		}
