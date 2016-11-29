@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using WordCloudCalculator.Contract;
@@ -20,6 +21,14 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
         public double Area(Rect r) {
             return (r.BottomRight - r.BottomLeft) * (r.BottomRight - r.TopRight);
         }
+
+        private Point GetSpiralPoint(double position, double radius = 7) {
+            var tau = 2 * Math.PI;
+            double mult = position / tau * radius;
+            double angle = position % tau;
+            return new Point((int)(mult * Math.Sin(angle)), (int)(mult * Math.Cos(angle)));
+        }
+
 
         public VisualizedWord CalculateWordAppearence( IWeightedWord word, int itemIndex/*, VisualizedWord preDecessors*/ ) {
             //Ausdehnung
