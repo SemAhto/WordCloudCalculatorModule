@@ -17,8 +17,11 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
         //public List<Polygon> Polygons { get; private set; }
         public List<Rect> Taken { get; private set; }
 
-        public VisualizedWord CalculateWordAppearence(IWeightedWord word, int itemIndex/*, VisualizedWord preDecessors*/)
-		{
+        public double Area(Rect r) {
+            return (r.BottomRight - r.BottomLeft) * (r.BottomRight - r.TopRight);
+        }
+
+        public VisualizedWord CalculateWordAppearence( IWeightedWord word, int itemIndex/*, VisualizedWord preDecessors*/ ) {
             //Ausdehnung
             var size = Arguments.WordSizeCalculator(word.Text, CalculateRelativeValue(Arguments.FontSizeRange, word.Weight));
             var s = new System.Windows.Size(size.Width, size.Height);
@@ -73,16 +76,14 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
             //rechtecke für nächsten Durchlauf speichern
             Taken.Add( rectangle );
 
-            if (StopAfterWords > 0 &&  itemIndex == (StopAfterWords - 1))
-			{
+            if (StopAfterWords > 0 &&  itemIndex == (StopAfterWords - 1)) {
 				CanAddWords = false;
 			}
 
 			return visualizedTag;
 		}
 
-        private double CalculateRelativeValue(Range range, double current)
-		{
+        private double CalculateRelativeValue(Range range, double current) {
 			return range.CalculateRelativeValue(new Range(0, MaxWeight), current);
 		}
 	}
