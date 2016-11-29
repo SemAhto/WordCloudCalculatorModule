@@ -14,24 +14,30 @@ namespace WordCloudCalculatorConsoleApplication
 
 		static void Main(string[] args)
 		{
-			var list = new List<IDataRow>
-			{
-				new DataRow {Text = "Tag1", Weight = 100},
-				new DataRow {Text = "Tag2", Weight = 80},
-				new DataRow {Text = "Tag3", Weight = 70},
-				new DataRow {Text = "Tag4", Weight = 69},
-				new DataRow {Text = "Tag5", Weight = 66},
-				new DataRow {Text = "Tag6", Weight = 63},
-				new DataRow {Text = "Tag7", Weight = 30},
-				new DataRow {Text = "Tag8", Weight = 30},
-				new DataRow {Text = "Tag9", Weight = 15},
-				new DataRow {Text = "Tag14", Weight = 10},
-				new DataRow {Text = "Tag10", Weight = 1},
-				new DataRow {Text = "Tag11", Weight = 0}
-			};
 
-            var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
-            //var calc = new ExtractingWordCloudCalculator<CircleAppearenceCalculationMethod>();
+            var list = new List<IDataRow>();
+            //{
+            //    new DataRow {Text = "Tag1", Weight = 100},
+            //    new DataRow {Text = "Tag2", Weight = 80},
+            //    new DataRow {Text = "Tag3", Weight = 70},
+            //    new DataRow {Text = "Tag4", Weight = 69},
+            //    new DataRow {Text = "Tag5", Weight = 66},
+            //    new DataRow {Text = "Tag6", Weight = 63},
+            //    new DataRow {Text = "Tag7", Weight = 30},
+            //    new DataRow {Text = "Tag8", Weight = 30},
+            //    new DataRow {Text = "Tag9", Weight = 15},
+            //    new DataRow {Text = "Tag14", Weight = 10},
+            //    new DataRow {Text = "Tag10", Weight = 1},
+            //    new DataRow {Text = "Tag11", Weight = 0}
+            //};
+
+            int max = 12;
+            for (int i = 0; i < max; ++i) {
+                list.Add(new DataRow { Text = "Tag" + i, Weight = (100 / max) * i } );
+            }
+
+            //var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
+            var calc = new ExtractingWordCloudCalculator<CircleAppearenceCalculationMethod>();
 
             var appearenaceArgs = new WordCloudAppearenceArguments()
 			{
