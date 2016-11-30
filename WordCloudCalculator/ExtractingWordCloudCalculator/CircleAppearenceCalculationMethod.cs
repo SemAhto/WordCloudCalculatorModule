@@ -24,14 +24,6 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
             return (r.Bottom - r.Top) * (r.Right - r.Left);
         }
 
-        private Point GetSpiralPoint(double position, double radius = 7) {
-            var tau = 2 * Math.PI;
-            double mult = position / tau * radius;
-            double angle = position % tau;
-            return new Point((int)(mult * Math.Sin(angle)), (int)(mult * Math.Cos(angle)));
-        }
-
-
         public VisualizedWord CalculateWordAppearence(IWeightedWord word, int itemIndex/*, VisualizedWord preDecessors*/ ) {
             //Ausdehnung
             var size = Arguments.WordSizeCalculator(word.Text, CalculateRelativeValue(Arguments.FontSizeRange, word.Weight));
@@ -112,5 +104,54 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
         private double CalculateRelativeValue(Range range, double current) {
 			return range.CalculateRelativeValue(new Range(0, MaxWeight), current);
 		}
-	}
+
+        private Point GetSpiralPoint(double position, double radius = 7)
+        {
+            var tau = 2 * Math.PI;
+            double mult = position / tau * radius;
+            double angle = position % tau;
+            return new Point((int)(mult * Math.Sin(angle)), (int)(mult * Math.Cos(angle)));
+        }
+
+        private Point archimedeanSpiral(System.Windows.Size size) {
+            //ohne lambda
+            var e = size.Width / size.Height;
+            var r = new Random();
+            //var t = new Random() { return this.NextDouble() } < .5 ? 1 : -1;
+            var t = r.NextDouble() < .5 ? 1 : -1;
+            //t /= .1;
+            return new System.Windows.Point(e * (t /= 10) * Math.Cos(t), t * Math.Sin(t));
+            //mit lambda?
+            //System.Windows.Point p = (t) => { e * (t *= .1) * Math.Cos(t), t* Math.Sin(t) };
+            //oder
+            //return (t) => { e * ( t *= .1 ) * Math.Cos( t ), t * Math.Sin( t ) };
+            //return function(t) {
+            //    return [e * (t *= .1) * Math.Cos(t), t * Math.Sin(t)];
+            //};
+        }
+        //f = arch(s)
+        //f(t)
+
+        //private System.Windows.Point rectangularSpiral(System.Windows.Size size) {
+        //    var dy = 4;
+        //    var dx = dy * size.Width / size.Height;
+        //    var x = 0;
+        //    var y = 0;
+        //    return function(t) {
+        //        var sign = t < 0 ? -1 : 1;
+        //        // See triangular numbers: T_n = n * (n + 1) / 2.
+        //        switch ((Math.sqrt(1 + 4 * sign * t) - sign) & 3)
+        //        {
+        //            case 0: x += dx; break;
+        //            case 1: y += dy; break;
+        //            case 2: x -= dx; break;
+        //            default: y -= dy; break;
+        //        }
+        //        return [x, y];
+        //    };
+        //}
+
+
+
+    }
 }
