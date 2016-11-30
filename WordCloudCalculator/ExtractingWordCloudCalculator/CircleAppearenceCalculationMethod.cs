@@ -112,7 +112,9 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
             double angle = position % tau;
             return new Point((int)(mult * Math.Sin(angle)), (int)(mult * Math.Cos(angle)));
         }
-
+/* d3-cloud inspired
+ * s.a. https://github.com/jasondavies/d3-cloud/blob/master/index.js
+ */
         private Point archimedeanSpiral(System.Windows.Size size) {
             //ohne lambda
             var e = size.Width / size.Height;
@@ -150,7 +152,7 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
         //        return [x, y];
         //    };
         //}
-
+/* /d3-cloud inspired */
 
 
     }
