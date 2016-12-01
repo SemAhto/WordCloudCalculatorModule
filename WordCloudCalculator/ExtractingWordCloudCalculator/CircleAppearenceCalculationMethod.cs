@@ -22,6 +22,7 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
             return (r.BottomRight - r.BottomLeft) * (r.BottomRight - r.TopRight);
         }
 
+
         private Point GetSpiralPoint(double position, double radius = 7) {
             var tau = 2 * Math.PI;
             double mult = position / tau * radius;
@@ -65,17 +66,31 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
                     var intersect = new Rect();
                     foreach (Rect r in Taken) {
                         intersect = Rect.Intersect(rectangle, r);
-                        if (intersect.IsEmpty) { // darf ich benutzen
+                        if (intersect == System.Windows.Rect.Empty) { // darf ich benutzen
                             found = true; // mit rumschleifen aufhören
                             break;
                         } else { // Platz belegt
-                            // neuen Punkt finden
+                                 // neuen Punkt finden
+
+
+                            Point spiralPoint = GetSpiralPoint(r.Left);
+                            int offsetX = Console.WindowWidth/100;
+                            int offsetY = Console.WindowHeight/100;
+                            var testPoint = new Point((int)(spiralPoint.X + offsetX), (int)(spiralPoint.Y - offsetY));
+
+
+
+
+
+                        
                         }
                     }
                 }
+
             };
             //bzw. of Position (x,y) bis Position (x+size.Width,y+size.Height) frei/leer ist
             //wenn nicht, neue Position anhand Spirale a(r,phi) => a(x,y)
+            Taken.Add(rectangle); //platzieren
 
             var visualizedTag = new VisualizedWord(word) { 
                 Position = new Position(p.X, p.Y),
