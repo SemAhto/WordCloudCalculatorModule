@@ -30,8 +30,8 @@ namespace WordCloudCalculatorConsoleApplication
 				new DataRow {Text = "Tag11", Weight = 0}
 			};
 
-            var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
-            //var calc = new ExtractingWordCloudCalculator<CircleAppearenceCalculationMethod>();
+            //var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
+            var calc = new ExtractingWordCloudCalculator<CircleAppearenceCalculationMethod>();
 
             var appearenaceArgs = new WordCloudAppearenceArguments()
 			{
