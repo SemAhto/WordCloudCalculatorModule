@@ -31,9 +31,10 @@ namespace WordCloudCalculatorConsoleApplication
             //    new DataRow {Text = "Tag11", Weight = 0}
             //};
 
-            int max = 12;
+            int max = 3332;
             for (int i = 0; i < max; ++i) {
-                list.Add(new DataRow { Text = "Tag" + i, Weight = (100 / max) * i } );
+                list.Add(new DataRow { Text = "Tag" + i, Weight = (100 /( max%143)
+                    ) * (i+1) } );
             }
 
             //var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
@@ -42,21 +43,29 @@ namespace WordCloudCalculatorConsoleApplication
             var appearenaceArgs = new WordCloudAppearenceArguments()
 			{
 				PanelSize = new Size(Console.WindowWidth, Console.WindowHeight),
-				FontSizeRange = new Range(0.0, 15.0),
-				OpacityRange = new Range(0.5, 1.0),
-				WordMargin = Margin.None,
+				FontSizeRange = new Range(10, 72.0),
+				OpacityRange = new Range(1/15, 1.0),
+				WordMargin = new Margin(0,0,0,0),
 				WordSizeCalculator = GetTextMetrics
 			};
 
 			var ret = calc.Calculate(appearenaceArgs, list, row => new WeightedWord {Text = row.Text, Weight = row.Weight});
 
             foreach (var c in ret)
-			{
-                Console.CursorLeft = Convert.ToInt32(c.Position.Left);
-				Console.CursorTop = Convert.ToInt32(c.Position.Top);
-				Console.ForegroundColor = ConsoleColor.Black + Convert.ToInt32(c.Opacity * 15);
-				Console.Write(c.Text);
-			}
+			{ 
+                var lleft = Convert.ToInt32(c.Position.Left + appearenaceArgs.PanelSize.Width / 2);
+                var ltop = Convert.ToInt32(c.Position.Top + appearenaceArgs.PanelSize.Height / 2);
+                var lwidth = lleft + c.Size.Width;
+                var lheight = ltop + c.Size.Height;
+                if (!(lleft < 0 || lleft > appearenaceArgs.PanelSize.Width || lwidth > appearenaceArgs.PanelSize.Width
+                    || ltop < 0 || ltop > appearenaceArgs.PanelSize.Height || lheight > appearenaceArgs.PanelSize.Height)) { 
+                    Console.CursorLeft = lleft;
+                    Console.CursorTop = ltop;
+
+				    Console.ForegroundColor = (ConsoleColor.Black + 1 + (int)(15  * c.Opacity % 15));
+				    Console.Write(c.Text);
+                }
+            }
 			Console.ReadLine();
 		}
 	}

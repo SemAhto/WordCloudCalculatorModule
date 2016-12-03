@@ -33,6 +33,8 @@ namespace WordCloudCalculator.Contract.Word
 		/// Defines how strong the word should be displayed [0..1]
 		/// </summary>
 		public double Opacity { get; set; }
-		public override string ToString() => $"{Text}, Position({Position}), FontSize({FontSize}) Opacity = {Opacity:N1}";
-	}
+        public Size Size { get; set; }
+		public override string ToString() => $"{Text}, Position({Position}), Size({Size}), FontSize({FontSize}) Opacity = {Opacity:N1}";
+
+    }
 }
