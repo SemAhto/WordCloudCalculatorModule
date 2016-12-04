@@ -2,25 +2,29 @@ using System;
 
 namespace WordCloudCalculator.Contract
 {
-	/// <summary>
-	/// Defines Boundaries and provides some related calculation methods
-	/// </summary>
-	public struct Range
-	{
-		private double _min;
-		private double _max;
+    /// <summary>
+    /// Defines Boundaries and provides some related calculation methods
+    /// </summary>
+    public struct Range
+    {
+        private double _min;
+        private double _max;
+        //private double _step ;
 
-		public Range(double min, double max)
-		{
-			_max = max;
-			_min = min;
-			if(!IsValid) throw new Exception("Invalid Range!");
-		}
-		
-		/// <summary>
-		/// Lower Bound
-		/// </summary>
-		public double Min
+        public Range(double min, double max /*, step = 1.0*/ )
+        {
+            //_step = 1.0;
+            //_max = Convert.ToInt32(max / _step) * _step;
+            //_min = Convert.ToInt32(min / _step) * _step;
+            _max = max;
+            _min = min;
+            if (min > max) throw new Exception("Invalid Range!");
+        }
+        //private double InStep(double x, double s) => { return Convert.ToInt32(x / s) * s };
+        /// <summary>
+        /// Lower Bound
+        /// </summary>
+        public double Min
 		{
 			get { return _min; }
 			set
@@ -38,7 +42,7 @@ namespace WordCloudCalculator.Contract
 			get { return _max; }
 			set
 			{
-				if (value < Min) throw new Exception("Maximum cannot be lesser than Minimum!");
+				if (!IsValid) throw new Exception("Maximum cannot be lesser than Minimum!");
 				_max = value;
 			}
 		}
@@ -52,10 +56,10 @@ namespace WordCloudCalculator.Contract
 		/// <returns></returns>
 		public bool Includes(double value) => Min <= value && value <= Max;
 
-		/// <summary>
-		/// Checks if bound relation is correct
-		/// </summary>
-		public bool IsValid => Max >= Min;
+        /// <summary>
+        /// Checks if bound relation is correct
+        /// </summary>
+        public bool IsValid => Max >= Min;
 
 		/// <summary>
 		/// Calculates the relative range value of a given value of an other Range
@@ -65,7 +69,7 @@ namespace WordCloudCalculator.Contract
 		/// <returns>Relative Range Value</returns>
 		public double CalculateRelativeValue(Range valueRange, double currentValue)
 		{
-			return Min + (currentValue - valueRange.Min)*Amplitude/valueRange.Amplitude;
+			return Min + (currentValue - valueRange.Min) * Amplitude / valueRange.Amplitude;
 		}
 	}
 }
