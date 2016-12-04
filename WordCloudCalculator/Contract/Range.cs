@@ -9,14 +9,16 @@ namespace WordCloudCalculator.Contract
     {
         private double _min;
         private double _max;
-        private double _step ;
+        //private double _step ;
 
         public Range(double min, double max /*, step = 1.0*/ )
         {
-            _step = 1.0;
-            _max = Convert.ToInt32(max / _step) * _step;
-            _min = Convert.ToInt32(min / _step) * _step;
-            if (!IsValid) throw new Exception("Invalid Range!");
+            //_step = 1.0;
+            //_max = Convert.ToInt32(max / _step) * _step;
+            //_min = Convert.ToInt32(min / _step) * _step;
+            _max = max;
+            _min = min;
+            if (min > max) throw new Exception("Invalid Range!");
         }
         //private double InStep(double x, double s) => { return Convert.ToInt32(x / s) * s };
         /// <summary>
@@ -67,7 +69,7 @@ namespace WordCloudCalculator.Contract
 		/// <returns>Relative Range Value</returns>
 		public double CalculateRelativeValue(Range valueRange, double currentValue)
 		{
-			return Min + (currentValue - valueRange.Min)*Amplitude/valueRange.Amplitude;
+			return Min + (currentValue - valueRange.Min) * Amplitude / valueRange.Amplitude;
 		}
 	}
 }

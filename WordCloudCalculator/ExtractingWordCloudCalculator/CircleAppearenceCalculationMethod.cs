@@ -22,10 +22,17 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
         private int Cnt { get; set; } = 0;
         private double pos;
         
-        public double CalculateRelativeValue(Range Range, double Weight, double Step, double Multiplier = 10)
-        {
+        public double CalculateRelativeValue(Range Range, double Weight, double Step, double Multiplier = 1) {
             //= Convert.ToInt32((Range.Min / Range.Max * Weight % Range.Max + Range.Min) / Step) * Step,
-            return Convert.ToInt32((Range.Min / Range.Max * Weight % (Range.Max * Multiplier) + Range.Min) / Step ) * Step;
+            //var ratio = Range.CalculateRelativeValue(Range, Weight);
+            var ratio = Range.Min / Range.Max * Weight /*/ (Range.Max - Range.Min)*/;
+            var i = (ratio % (Range.Max - Range.Min) + Range.Min) ;
+            var r = Convert.ToInt32(i / Step) * Step;
+if(r > Range.Max)
+            {
+                ;
+            }
+            return r;
         }
 
         public double Area(Rect r) { // (Groﬂ-Klein)^2
@@ -172,11 +179,13 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
                 var vergl = new Range(Arguments.FontSizeRange.Min, Arguments.FontSizeRange.Max/*, 0.5*/).CalculateRelativeValue(Arguments.FontSizeRange, word.Weight);
                 return new VisualizedWord(word) {
                     Size = new Contract.Visualization.Size(rectangle.Width, rectangle.Height),
-                    //FontSize =  Convert.ToInt32((Arguments.FontSizeRange.Min / Arguments.FontSizeRange.Max * word.Weight % Arguments.FontSizeRange.Max + Arguments.FontSizeRange.Min) /0.5)*0.5,
+                    //FontSize = Convert.ToInt32((Arguments.FontSizeRange.Min / Arguments.FontSizeRange.Max * word.Weight % Arguments.FontSizeRange.Max + Arguments.FontSizeRange.Min) / 0.5) * 0.5,
+                    //FontSize = Arguments.FontSizeRange.CalculateRelativeValue(Arguments.FontSizeRange, word.Weight/*, 0.5, 1*/),
                     FontSize = CalculateRelativeValue(Arguments.FontSizeRange, word.Weight, 0.5, 1),
                     Position = new Position(rectangle.Top, rectangle.Left),
-                    //Opacity = (Arguments.OpacityRange.Min/Arguments.OpacityRange.Max*word.Weight%150 + Arguments.OpacityRange.Min) / 150 //CalculateRelativeValue(Arguments.OpacityRange, word.Weight, double Step)
-                    Opacity = CalculateRelativeValue(Arguments.OpacityRange, word.Weight, 0.01, 10)
+                    //Opacity = (Arguments.OpacityRange.Min / Arguments.OpacityRange.Max * word.Weight % 150 + Arguments.OpacityRange.Min) / 150 //CalculateRelativeValue(Arguments.OpacityRange, word.Weight, double Step)
+                    Opacity = this.CalculateRelativeValue(Arguments.OpacityRange, word.Weight, 0.1, 1)
+                    //Opacity = Arguments.OpacityRange.CalculateRelativeValue(Arguments.OpacityRange, word.Weight/*, 0.1, 1*/)
                 }
                 ;
             } else { return new VisualizedWord(word); }

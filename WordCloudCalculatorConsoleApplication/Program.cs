@@ -32,9 +32,9 @@ namespace WordCloudCalculatorConsoleApplication
             //};
 
             int max = 3332;
+            Random r = new Random();
             for (int i = 0; i < max; ++i) {
-                list.Add(new DataRow { Text = "Tag" + i, Weight = (100 /( max%143)
-                    ) * (i+1) } );
+                list.Add( new DataRow { Text = "Tag" + i, Weight = (100 / ( max % 123 ) * i + 1 ) } );
             }
 
             //var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
@@ -44,7 +44,7 @@ namespace WordCloudCalculatorConsoleApplication
 			{
 				PanelSize = new Size(Console.WindowWidth, Console.WindowHeight),
 				FontSizeRange = new Range(10, 72.0),
-				OpacityRange = new Range(1/15, 1.0),
+				OpacityRange = new Range(0.24, 1.0),
 				WordMargin = new Margin(0,0,0,0),
 				WordSizeCalculator = GetTextMetrics
 			};
