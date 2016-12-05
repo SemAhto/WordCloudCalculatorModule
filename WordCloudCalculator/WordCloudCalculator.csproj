@@ -30,8 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,8 +57,18 @@
     <Compile Include="WordCloudCalculator\IWordCloudAppearenceArguments.cs" />
     <Compile Include="WordCloudCalculator\IWordCloudCalculator.cs" />
     <Compile Include="WordCloudCalculator\WordCloudAppearenceArguments.cs" />
+    <Compile Include="WPF\CommandProxy.cs" />
+    <Compile Include="WPF\WeightedWordToVisualizedWordConverter.cs" />
+    <Compile Include="WPF\WordCloud.cs" />
+    <Compile Include="WPF\WordCloudPanel.cs" />
+    <Compile Include="WPF\WordSizeCalculatorFactory.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="WPF\WordCloudGui.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
