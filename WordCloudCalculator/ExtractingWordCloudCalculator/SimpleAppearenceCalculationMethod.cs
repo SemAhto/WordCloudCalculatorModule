@@ -1,5 +1,5 @@
+using System.Windows;
 using WordCloudCalculator.Contract;
-using WordCloudCalculator.Contract.Visualization;
 using WordCloudCalculator.Contract.Word;
 using WordCloudCalculator.WordCloudCalculator;
 
@@ -17,7 +17,7 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
 
 			var visualizedTag = new VisualizedWord(word)
 			{
-				Position = new Position(itemIndex, itemIndex),
+				Position = new Point(itemIndex, itemIndex),
 				Opacity = CalculateRelativeValue(Arguments.OpacityRange, word.Weight)
 			};
 

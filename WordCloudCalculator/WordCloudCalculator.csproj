@@ -42,9 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contract\Range.cs" />
-    <Compile Include="Contract\Visualization\Margin.cs" />
-    <Compile Include="Contract\Visualization\Position.cs" />
-    <Compile Include="Contract\Visualization\Size.cs" />
     <Compile Include="Contract\Word\IWeightedWord.cs" />
     <Compile Include="Contract\Word\IWord.cs" />
     <Compile Include="Contract\Word\VisualizedWord.cs" />

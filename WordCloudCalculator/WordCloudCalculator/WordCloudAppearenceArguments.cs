@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Windows;
 using WordCloudCalculator.Contract;
-using WordCloudCalculator.Contract.Visualization;
 
 namespace WordCloudCalculator.WordCloudCalculator
 {
@@ -12,7 +12,6 @@ namespace WordCloudCalculator.WordCloudCalculator
 		public Size PanelSize { get; set; }
 		public Range FontSizeRange { get; set; }
 		public Range OpacityRange { get; set; }
-		public Margin WordMargin { get; set; }
 		public Func<string, double, Size> WordSizeCalculator { get; set; }
 	}
 }

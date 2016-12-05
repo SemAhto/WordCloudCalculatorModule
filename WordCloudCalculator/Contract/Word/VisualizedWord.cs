@@ -1,4 +1,4 @@
-using WordCloudCalculator.Contract.Visualization;
+using System.Windows;
 
 namespace WordCloudCalculator.Contract.Word
 {
@@ -27,7 +27,7 @@ namespace WordCloudCalculator.Contract.Word
 		/// <summary>
 		/// Defines where it has to be displayed on screen
 		/// </summary>
-		public Position Position { get; set; }
+		public Point Position { get; set; }
 
 		/// <summary>
 		/// Defines how strong the word should be displayed [0..1]

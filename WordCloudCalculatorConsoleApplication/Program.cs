@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using WordCloudCalculator.Contract;
-using WordCloudCalculator.Contract.Visualization;
 using WordCloudCalculator.Contract.Word;
 using WordCloudCalculator.ExtractingWordCloudCalculator;
 using WordCloudCalculator.WordCloudCalculator;
@@ -45,7 +45,6 @@ namespace WordCloudCalculatorConsoleApplication
 				PanelSize = new Size(Console.WindowWidth, Console.WindowHeight),
 				FontSizeRange = new Range(10, 72.0),
 				OpacityRange = new Range(0.24, 1.0),
-				WordMargin = new Margin(0,0,0,0),
 				WordSizeCalculator = GetTextMetrics
 			};
 
@@ -53,8 +52,8 @@ namespace WordCloudCalculatorConsoleApplication
 
             foreach (var c in ret)
 			{ 
-                var lleft = Convert.ToInt32(c.Position.Left + appearenaceArgs.PanelSize.Width / 2);
-                var ltop = Convert.ToInt32(c.Position.Top + appearenaceArgs.PanelSize.Height / 2);
+                var lleft = Convert.ToInt32(c.Position.X + appearenaceArgs.PanelSize.Width / 2);
+                var ltop = Convert.ToInt32(c.Position.Y + appearenaceArgs.PanelSize.Height / 2);
                 var lwidth = lleft + c.Size.Width;
                 var lheight = ltop + c.Size.Height;
                 if (!(lleft < 0 || lleft > appearenaceArgs.PanelSize.Width || lwidth > appearenaceArgs.PanelSize.Width

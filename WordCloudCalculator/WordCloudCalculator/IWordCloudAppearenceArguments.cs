@@ -1,6 +1,6 @@
 using System;
+using System.Windows;
 using WordCloudCalculator.Contract;
-using WordCloudCalculator.Contract.Visualization;
 
 namespace WordCloudCalculator.WordCloudCalculator
 {
@@ -23,11 +23,6 @@ namespace WordCloudCalculator.WordCloudCalculator
 		/// Defines the lightest and the strongest apperence of a word in the cloud [0..1]
 		/// </summary>
 		Range OpacityRange { get; set; }
-
-		/// <summary>
-		/// Defines the minimum space around a single word
-		/// </summary>
-		Margin WordMargin { get; set; }
 
 		/// <summary>
 		/// Provides a method to calculate the size on screen by given content and desired fontsize

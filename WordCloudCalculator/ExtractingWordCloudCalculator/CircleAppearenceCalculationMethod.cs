@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using WordCloudCalculator.Contract;
-using WordCloudCalculator.Contract.Visualization;
 using WordCloudCalculator.Contract.Word;
 using WordCloudCalculator.WordCloudCalculator;
 
@@ -62,21 +61,18 @@ if(r > Range.Max)
            
             //Ausdehnung
             var size = Arguments.WordSizeCalculator(word.Text, CalculateRelativeValue(Arguments.FontSizeRange, word.Weight));
-            var s = new System.Windows.Size(size.Width + Arguments.WordMargin.Left + Arguments.WordMargin.Right, 
-                size.Height+ Arguments.WordMargin.Top + Arguments.WordMargin.Bottom);
+            
 
                 
             //Startpunkt ermitteln
             var p = new Point();
 
             if (itemIndex == 0) { //vll auch (0,0), später!
-                p.X = 0 - Arguments.WordMargin.Left;
-                p.Y = 0 - Arguments.WordMargin.Top;
+                p.X = 0;
+                p.Y = 0;
                 pos = 0;
             } else {
                 p = GetSpiralPoint(pos/*, radius = 2*/);
-                p.X -= Arguments.WordMargin.Left;
-                p.Y -= Arguments.WordMargin.Top;
 
             }
 
@@ -84,7 +80,7 @@ if(r > Range.Max)
             //mach' ein Rechteck d'raus
             var rectangle = new System.Windows.Rect() {
                 Location = p,
-                Size = s
+                Size = size
             };
             var rectgeom = rectangle;//geometrisch  
 
@@ -131,8 +127,8 @@ if(r > Range.Max)
                     //var a = 0.2 + (this.Area(intersect) / this.Area(rectgeom));
                     //pos += tau / Sectors * a;
                     p = GetSpiralPoint(pos);//this.Radius
-                    p.X -= (Arguments.WordMargin.Left );
-                    p.Y -= (Arguments.WordMargin.Top );
+                    //p.X -= (Arguments.WordMargin.Left );
+                    //p.Y -= (Arguments.WordMargin.Top );
                     //rectangle.Width += Arguments.WordMargin.Left + Arguments.WordMargin.Right;
                     //rectangle.Height += Arguments.WordMargin.Top + Arguments.WordMargin.Bottom;
                     rectangle.Location=p;
@@ -180,11 +176,11 @@ if(r > Range.Max)
 
                 var vergl = new Range(Arguments.FontSizeRange.Min, Arguments.FontSizeRange.Max/*, 0.5*/).CalculateRelativeValue(Arguments.FontSizeRange, word.Weight);
                 return new VisualizedWord(word) {
-                    Size = new Contract.Visualization.Size(rectangle.Width, rectangle.Height),
+                    Size = new Size(rectangle.Width, rectangle.Height),
                     //FontSize = Convert.ToInt32((Arguments.FontSizeRange.Min / Arguments.FontSizeRange.Max * word.Weight % Arguments.FontSizeRange.Max + Arguments.FontSizeRange.Min) / 0.5) * 0.5,
                     //FontSize = Arguments.FontSizeRange.CalculateRelativeValue(Arguments.FontSizeRange, word.Weight/*, 0.5, 1*/),
                     FontSize = CalculateRelativeValue(Arguments.FontSizeRange, word.Weight, 0.5, 1),
-                    Position = new Position(rectangle.Top, rectangle.Left),
+                    Position = new Point(rectangle.Top, rectangle.Left),
                     //Opacity = (Arguments.OpacityRange.Min / Arguments.OpacityRange.Max * word.Weight % 150 + Arguments.OpacityRange.Min) / 150 //CalculateRelativeValue(Arguments.OpacityRange, word.Weight, double Step)
                     Opacity = this.CalculateRelativeValue(Arguments.OpacityRange, word.Weight, 0.1, 1)
                     //Opacity = Arguments.OpacityRange.CalculateRelativeValue(Arguments.OpacityRange, word.Weight/*, 0.1, 1*/)
