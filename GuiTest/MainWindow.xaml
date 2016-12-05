@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GuiTest"
+        xmlns:wordCloud="clr-namespace:terradbtag.WordCloud;assembly=WordCloudCalculator"
+        xmlns:extractingWordCloudCalculator="clr-namespace:WordCloudCalculator.ExtractingWordCloudCalculator;assembly=WordCloudCalculator"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+	<Window.Resources>
+		<ResourceDictionary>
+			<local:MainViewModel x:Key="MainViewModel"/>
+			<local:TestAppeareanceArgs x:Key="AppeareanceArgs"/>
+		</ResourceDictionary>
+	</Window.Resources>
+    <Grid DataContext="{StaticResource MainViewModel}">
+		<wordCloud:WordCloud Words="{Binding Words}" AppearenceArguments="{StaticResource AppeareanceArgs}" WordSelectedCommand="{Binding WordSelectedCommand}" WordAppearenceCalculationMethodType="extractingWordCloudCalculator:SimpleAppearenceCalculationMethod"/>
+	</Grid>
 </Window>

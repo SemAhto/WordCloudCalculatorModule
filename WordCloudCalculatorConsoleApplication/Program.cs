@@ -38,7 +38,7 @@ namespace WordCloudCalculatorConsoleApplication
             }
 
             //var calc = new ExtractingWordCloudCalculator<SimpleAppearenceCalculationMethod>();
-            var calc = new ExtractingWordCloudCalculator<CircleAppearenceCalculationMethod>();
+            var calc = new ExtractingWordCloudCalculator(typeof(CircleAppearenceCalculationMethod));
 
             var appearenaceArgs = new WordCloudAppearenceArguments()
 			{

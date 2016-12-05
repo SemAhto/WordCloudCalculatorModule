@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wordCloud="clr-namespace:terradbtag.WordCloud"
+					xmlns:word="clr-namespace:WordCloudCalculator.Contract.Word"
+					xmlns:wpf="clr-namespace:WordCloudCalculator.WPF"
+					xmlns:extractingWordCloudCalculator="clr-namespace:WordCloudCalculator.ExtractingWordCloudCalculator">
+	<Style TargetType="wordCloud:WordCloud">
+		<Style.Setters>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="wordCloud:WordCloud">
+						<ItemsControl>
+							<ItemsControl.Resources>
+								<ResourceDictionary>
+									<wordCloud:WeightedWordToVisualizedWordConverter x:Key="WeightedWordToVisualizedWordConverter"/>
+									<wpf:CommandProxy x:Key="WordSelecedCommandProxy" Command="{Binding WordSelectedCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
+								</ResourceDictionary>
+							</ItemsControl.Resources>
+							<ItemsControl.ItemsSource>
+								<MultiBinding Converter="{StaticResource WeightedWordToVisualizedWordConverter}" Delay="500">
+									<Binding Path="Words" RelativeSource="{RelativeSource TemplatedParent}"/>
+									<Binding Path="ActualHeight" RelativeSource="{RelativeSource TemplatedParent}"/>
+									<Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
+									<Binding Path="AppearenceArguments" RelativeSource="{RelativeSource TemplatedParent}"/>
+									<Binding Path="WordAppearenceCalculationMethodType" RelativeSource="{RelativeSource TemplatedParent}"/>
+									<Binding Path="WordSelectedCommand" RelativeSource="{RelativeSource TemplatedParent}"/>
+								</MultiBinding>
+							</ItemsControl.ItemsSource>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate DataType="word:VisualizedWord">
+									<Button Content="{Binding Text}" FontSize="{Binding FontSize}" Opacity="{Binding Opacity}" Margin="3" Command="{StaticResource WordSelecedCommandProxy}"  CommandParameter="{Binding}" DataContext="{Binding}"/>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<wordCloud:WordCloudPanel/>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+						</ItemsControl>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style.Setters>
+	</Style>
+</ResourceDictionary>

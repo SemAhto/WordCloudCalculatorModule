@@ -29,7 +29,7 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
             var r = Convert.ToInt32(i / Step) * Step;
 if(r > Range.Max)
             {
-                ;
+                
             }
             return r;
         }

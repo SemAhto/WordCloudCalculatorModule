@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:GuiTest"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <ResourceDictionary Source="/WordCloudCalculator;component/WPF/WordCloudGui.xaml"/>
     </Application.Resources>
 </Application>
