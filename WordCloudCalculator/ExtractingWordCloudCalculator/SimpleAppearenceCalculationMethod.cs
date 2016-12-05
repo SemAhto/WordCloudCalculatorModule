@@ -1,5 +1,5 @@
-using System.Windows;
 using WordCloudCalculator.Contract;
+using WordCloudCalculator.Contract.Visualization;
 using WordCloudCalculator.Contract.Word;
 using WordCloudCalculator.WordCloudCalculator;
 
@@ -10,16 +10,23 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
 		public IWordCloudAppearenceArguments Arguments { get; set; }
 		public double MaxWeight { get; set; }
 
+		public double Top { get; set; }
+
 		public VisualizedWord CalculateWordAppearence(IWeightedWord word, int itemIndex)
 		{
+			var fontSize = CalculateRelativeValue(Arguments.FontSizeRange, word.Weight);
 
-			var size = Arguments.WordSizeCalculator(word.Text, CalculateRelativeValue(Arguments.FontSizeRange, word.Weight));
+			var size = Arguments.WordSizeCalculator(word.Text, fontSize);
 
 			var visualizedTag = new VisualizedWord(word)
 			{
-				Position = new Point(itemIndex, itemIndex),
-				Opacity = CalculateRelativeValue(Arguments.OpacityRange, word.Weight)
+				Position = new Position(Top, itemIndex * 10),
+				Opacity = CalculateRelativeValue(Arguments.OpacityRange, word.Weight),
+				FontSize = fontSize,
+				Size = size
 			};
+
+			Top += size.Height;
 
 			if (itemIndex == 4)
 			{
