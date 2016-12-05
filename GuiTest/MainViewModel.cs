@@ -14,10 +14,15 @@ namespace GuiTest
 {
 	class MainViewModel : INotifyPropertyChanged
 	{
+		private ICommand _wordSelectedCommand;
 
 		public ObservableCollection<IWeightedWord> Words { get; set; }
 
-		public ICommand WordSelectedCommand { get; set; }
+		public ICommand WordSelectedCommand
+		{
+			get { return _wordSelectedCommand; }
+			set { _wordSelectedCommand = value; OnPropertyChanged();}
+		}
 
 		public MainViewModel()
 		{

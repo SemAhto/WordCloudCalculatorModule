@@ -15,6 +15,11 @@
 		</ResourceDictionary>
 	</Window.Resources>
     <Grid DataContext="{StaticResource MainViewModel}">
-		<wordCloud:WordCloud Words="{Binding Words}" AppearenceArguments="{StaticResource AppeareanceArgs}" WordSelectedCommand="{Binding WordSelectedCommand}" WordAppearenceCalculationMethodType="extractingWordCloudCalculator:SimpleAppearenceCalculationMethod"/>
+		<wordCloud:WordCloud 
+			Words="{Binding Words}" 
+			AppearenceArguments="{StaticResource AppeareanceArgs}" 
+			WordSelectedCommand="{Binding WordSelectedCommand}" 
+			WordAppearenceCalculationMethodType="extractingWordCloudCalculator:CircleAppearenceCalculationMethod"
+			/>
 	</Grid>
 </Window>

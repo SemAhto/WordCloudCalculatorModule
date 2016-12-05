@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace WordCloudCalculator.WPF
 {
-	class CommandProxy : FrameworkElement, ICommand
+	class CommandProxy : Freezable, ICommand
 	{
 		public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(CommandProxy));
 
@@ -29,5 +29,9 @@ namespace WordCloudCalculator.WPF
 		}
 
 		public event EventHandler CanExecuteChanged;
+		protected override Freezable CreateInstanceCore()
+		{
+			return new CommandProxy();
+		}
 	}
 }

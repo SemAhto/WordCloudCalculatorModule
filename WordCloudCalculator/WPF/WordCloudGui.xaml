@@ -2,18 +2,20 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wordCloud="clr-namespace:terradbtag.WordCloud"
 					xmlns:word="clr-namespace:WordCloudCalculator.Contract.Word"
-					xmlns:wpf="clr-namespace:WordCloudCalculator.WPF"
-					xmlns:extractingWordCloudCalculator="clr-namespace:WordCloudCalculator.ExtractingWordCloudCalculator">
+					xmlns:wpf="clr-namespace:WordCloudCalculator.WPF">
 	<Style TargetType="wordCloud:WordCloud">
 		<Style.Setters>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="wordCloud:WordCloud">
-						<ItemsControl>
+						<ItemsControl x:Name="Panel">
+							<ItemsControl.DataContext>
+								<Binding RelativeSource="{RelativeSource TemplatedParent}"></Binding>
+							</ItemsControl.DataContext>
 							<ItemsControl.Resources>
 								<ResourceDictionary>
 									<wordCloud:WeightedWordToVisualizedWordConverter x:Key="WeightedWordToVisualizedWordConverter"/>
-									<wpf:CommandProxy x:Key="WordSelecedCommandProxy" Command="{Binding WordSelectedCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
+									<wpf:CommandProxy x:Key="CommandProxy" Command="{Binding DataContext.WordSelectedCommand, ElementName=Panel}"/>
 								</ResourceDictionary>
 							</ItemsControl.Resources>
 							<ItemsControl.ItemsSource>
@@ -23,12 +25,13 @@
 									<Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
 									<Binding Path="AppearenceArguments" RelativeSource="{RelativeSource TemplatedParent}"/>
 									<Binding Path="WordAppearenceCalculationMethodType" RelativeSource="{RelativeSource TemplatedParent}"/>
-									<Binding Path="WordSelectedCommand" RelativeSource="{RelativeSource TemplatedParent}"/>
+									<Binding Path="Command" Source="{StaticResource CommandProxy}"></Binding>
+									<Binding/>
 								</MultiBinding>
 							</ItemsControl.ItemsSource>
 							<ItemsControl.ItemTemplate>
 								<DataTemplate DataType="word:VisualizedWord">
-									<Button Content="{Binding Text}" FontSize="{Binding FontSize}" Opacity="{Binding Opacity}" Margin="3" Command="{StaticResource WordSelecedCommandProxy}"  CommandParameter="{Binding}" DataContext="{Binding}"/>
+									<Button Content="{Binding Text}" FontSize="{Binding FontSize}" Opacity="{Binding Opacity}" Margin="3" Command="{StaticResource CommandProxy}"  CommandParameter="{Binding}" DataContext="{Binding}"/>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 							<ItemsControl.ItemsPanel>
