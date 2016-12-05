@@ -126,8 +126,10 @@ if(r > Range.Max)
                 if (nofound) {
                     itemCnt++;
                     Cnt++;
-                    var a = (this.Area(intersect)/this.Area(rectgeom));
-                    pos += tau/Sectors + a;
+                    var a = (this.Area(intersect) / this.Area(rectgeom));
+                    pos += tau / Sectors + a;
+                    //var a = 0.2 + (this.Area(intersect) / this.Area(rectgeom));
+                    //pos += tau / Sectors * a;
                     p = GetSpiralPoint(pos);//this.Radius
                     p.X -= (Arguments.WordMargin.Left );
                     p.Y -= (Arguments.WordMargin.Top );
