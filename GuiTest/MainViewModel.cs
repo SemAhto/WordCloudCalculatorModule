@@ -16,6 +16,8 @@ namespace GuiTest
 	{
 		private ICommand _wordSelectedCommand;
 
+		const string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 		public ObservableCollection<IWeightedWord> Words { get; set; }
 
 		public ICommand WordSelectedCommand
@@ -24,16 +26,27 @@ namespace GuiTest
 			set { _wordSelectedCommand = value; OnPropertyChanged();}
 		}
 
+		public Random Random { get; set; } = new Random();
+
+		private string GenerateWord(int length)
+		{
+			var result = "";
+			for (int i = 0; i < length; i++)
+			{
+				result += Alphabet[Random.Next(0, 26)];
+			}
+			return result.ToLowerInvariant();
+		}
+
 		public MainViewModel()
 		{
-			Words = new ObservableCollection<IWeightedWord>
+			var words = new List<IWeightedWord>();
+			for (int i = 0; i < 200; i++)
 			{
-				new WeightedWord {Text = "Foo", Weight = 100},
-				new WeightedWord {Text = "Foo2", Weight = 80},
-				new WeightedWord {Text = "Foo3", Weight = 60},
-				new WeightedWord {Text = "Foo4", Weight = 30},
-				new WeightedWord {Text = "Foo5", Weight = 20},
-			};
+				words.Add(new WeightedWord() {Text = GenerateWord(Random.Next(3,11)), Weight = Random.Next(1,100)});
+			}
+
+			Words = new ObservableCollection<IWeightedWord>(words.OrderByDescending(weightedWord => weightedWord.Weight));
 
 			WordSelectedCommand = new RelayCommand(ExecuteTagSelectedCommand);
 		}

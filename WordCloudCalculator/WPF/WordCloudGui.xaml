@@ -19,7 +19,7 @@
 								</ResourceDictionary>
 							</ItemsControl.Resources>
 							<ItemsControl.ItemsSource>
-								<MultiBinding Converter="{StaticResource WeightedWordToVisualizedWordConverter}" Delay="500">
+								<MultiBinding Converter="{StaticResource WeightedWordToVisualizedWordConverter}" Delay="1000">
 									<Binding Path="Words" RelativeSource="{RelativeSource TemplatedParent}"/>
 									<Binding Path="ActualHeight" RelativeSource="{RelativeSource TemplatedParent}"/>
 									<Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
