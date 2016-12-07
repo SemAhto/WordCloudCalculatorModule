@@ -17,7 +17,7 @@ namespace GuiTest
 			WordSizeCalculator = WordSizeCalculatorFactory.FormattedTextWordSizeCalculator();
 		}
 		public Size PanelSize { get; set; }
-		public Range FontSizeRange { get; set; } = new Range(9, 40);
+		public Range FontSizeRange { get; set; } = new Range(8, 12);
 		public Range OpacityRange { get; set; } = new Range(0.4, 1);
 		public Func<string, double, Size> WordSizeCalculator { get; set; }
 	}

@@ -2,8 +2,7 @@
 using System.Windows.Controls;
 using WordCloudCalculator.Contract.Word;
 
-
-namespace terradbtag.WordCloud
+namespace WordCloudCalculator.WPF
 {
     /// <summary>
     ///     INFO: http://ikeptwalking.com/wpf-measureoverride-arrangeoverride-explained/

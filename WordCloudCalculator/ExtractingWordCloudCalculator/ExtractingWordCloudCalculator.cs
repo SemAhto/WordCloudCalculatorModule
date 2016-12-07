@@ -21,14 +21,13 @@ namespace WordCloudCalculator.ExtractingWordCloudCalculator
 		public VisualizedWord[] Calculate<TWord>(IWordCloudAppearenceArguments args, IEnumerable<TWord> wordSource, Func<TWord, IWeightedWord> extractWord)
 		{
 			var appearenceCalculationMethod = Activator.CreateInstance(WordAppearenceCalculationMethodType) as IWordAppearenceCalculationMethod;
-			if(appearenceCalculationMethod == null) return new VisualizedWord[0];
+			if(wordSource == null || appearenceCalculationMethod == null) return new VisualizedWord[0];
 			appearenceCalculationMethod.Arguments = args;
 			
-			var result = wordSource
+			var result = wordSource.Select(extractWord).OrderByDescending(word => word.Weight)
 				.TakeWhile(word => appearenceCalculationMethod.CanAddWords)
-				.Select((rawWord, index) =>
+				.Select((word, index) =>
 				{
-					var word = extractWord(rawWord);
 					if (index == 0)
 						appearenceCalculationMethod.MaxWeight = word.Weight;
 					return appearenceCalculationMethod.CalculateWordAppearence(word, index);

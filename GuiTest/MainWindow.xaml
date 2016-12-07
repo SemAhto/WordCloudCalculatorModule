@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GuiTest"
-        xmlns:wordCloud="clr-namespace:terradbtag.WordCloud;assembly=WordCloudCalculator"
-        xmlns:extractingWordCloudCalculator="clr-namespace:WordCloudCalculator.ExtractingWordCloudCalculator;assembly=WordCloudCalculator"
-        mc:Ignorable="d"
+		xmlns:extractingWordCloudCalculator="clr-namespace:WordCloudCalculator.ExtractingWordCloudCalculator;assembly=WordCloudCalculator"
+		xmlns:wpf="clr-namespace:WordCloudCalculator.WPF;assembly=WordCloudCalculator"
+		mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
 	<Window.Resources>
 		<ResourceDictionary>
@@ -15,7 +15,13 @@
 		</ResourceDictionary>
 	</Window.Resources>
     <Grid DataContext="{StaticResource MainViewModel}">
-		<wordCloud:WordCloud 
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Button Grid.Row="0" Content="Generate Words" Command="{Binding RefreshWords}"/>
+		<wpf:WordCloud
+			Grid.Row="1" MinHeight="100" Background="Aquamarine"
 			Words="{Binding Words}" 
 			AppearenceArguments="{StaticResource AppeareanceArgs}" 
 			WordSelectedCommand="{Binding WordSelectedCommand}" 
